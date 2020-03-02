@@ -7,15 +7,15 @@
     <!-- statement，内容：sql语句。id：唯一标识，随便写，在同一个命名空间下保持唯一
        resultType：sql语句查询结果集的封装类型,tb_user即为数据库中的表
      -->
-    <!--<select id="queryUserById" resultType="com.zpc.mybatis.pojo.User">-->
+    <!--<select id="queryUserById" resultType="com.shanpf.test.vo.User">-->
     <!--select * from tb_user where id = #{id}-->
     <!--</select>-->
 
     <!--使用别名-->
-    <select id="queryUserById" resultType="com.zpc.mybatis.pojo.User">
+    <select id="queryUserById" resultType="com.shanpf.test.vo.User">
       select
        tuser.id as id,
-       tuser.user_name as userName,
+       tuser.user_name as user_Name,
        tuser.password as password,
        tuser.name as name,
        tuser.age as age,
@@ -25,16 +25,17 @@
        tuser.updated as updated
        from
        tb_user tuser
-       where tuser.id = #{id};
+       where tuser.id = #{id}
    </select>
 
-    <select id="queryUserAll" resultType="com.zpc.mybatis.pojo.User">
-        select * from tb_user;
+    <select id="queryUserAll" resultType="com.shanpf.test.vo.User">
+        select * from tb_user
     </select>
 
     <!--插入数据-->
-    <insert id="insertUser" parameterType="com.zpc.mybatis.pojo.User">
+    <insert id="insertUser" parameterType="com.shanpf.test.vo.User">
         INSERT INTO tb_user (
+        id,
         user_name,
         password,
         name,
@@ -46,30 +47,31 @@
         )
         VALUES
         (
-        #{userName},
+        #{id},
+        #{user_Name},
         #{password},
         #{name},
         #{age},
         #{sex},
         #{birthday},
-        now(),
-        now()
-        );
+        '0',
+        '0'
+        )
     </insert>
 
-    <update id="updateUser" parameterType="com.zpc.mybatis.pojo.User">
+    <update id="updateUser" parameterType="com.shanpf.test.vo.User">
         UPDATE tb_user
         <trim prefix="set" suffixOverrides=",">
-            <if test="userName!=null">user_name = #{userName},</if>
+            <if test="user_Name!=null">user_name = #{user_Name},</if>
             <if test="password!=null">password = #{password},</if>
             <if test="name!=null">name = #{name},</if>
             <if test="age!=null">age = #{age},</if>
             <if test="sex!=null">sex = #{sex},</if>
             <if test="birthday!=null">birthday = #{birthday},</if>
-            updated = now(),
+            updated = '0',
         </trim>
         WHERE
-        (id = #{id});
+        (id = #{id})
     </update>
 
     <delete id="deleteUser">
