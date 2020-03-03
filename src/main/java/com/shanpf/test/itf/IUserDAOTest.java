@@ -1,7 +1,6 @@
 package com.shanpf.test.itf;
 
 import java.io.InputStream;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -12,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.shanpf.test.impl.UserDAOImpl;
-import com.shanpf.test.itf.IUserDAO;
 import com.shanpf.test.vo.User;
 
 public class IUserDAOTest {
@@ -29,9 +27,11 @@ public class IUserDAOTest {
 		// 构建SqlSessionFactory
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
 		// 获取sqlSession
-		sqlSession = sqlSessionFactory.openSession();
-		this.userDao = new UserDAOImpl(sqlSession);
+		this.sqlSession = sqlSessionFactory.openSession();
+		this.userDao = this.sqlSession.getMapper(IUserDAO.class);
+		//this.userDao = new UserDAOImpl(sqlSession);
 	}
+
 
 	@Test
 	public void queryUserById() throws Exception {
