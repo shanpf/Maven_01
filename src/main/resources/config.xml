@@ -16,5 +16,6 @@
     <mapper resource="mappers/MyMapper.xml" />
     <mapper resource="mappers/UserDAOMapper.xml" />
     <mapper resource="mappers/IUserMapper.xml"/>
+    <mapper resource="mappers/IOrderMapper.xml"/>
   </mappers>
 </configuration>
